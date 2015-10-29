@@ -28,16 +28,16 @@ import cn.saymagic.weixin.server.util.MsgXmlUtil;
  * 微信接口响应servlet
  */
 public class WxApiServlet extends HttpServlet {
-	Logger logger = Logger.getLogger(WxApiServlet.class.getName()); 
+	Logger logger = Logger.getLogger(WxApiServlet.class.getName());
 	private static final long serialVersionUID = 1L;
-       
+
     public WxApiServlet() {
         super();
     }
-    
+
     //url ，token 验证
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.info("##### valid url ");		
+		logger.info("##### valid url ");
         response.setContentType("text/plain");
         response.setStatus(200);
         response.setCharacterEncoding("UTF-8");
@@ -56,33 +56,35 @@ public class WxApiServlet extends HttpServlet {
 				response.getWriter().write("Token校验失败，但也欢迎拜访这个网页!");
 			}
 		}
-		
+
 	}
 
-	
+
 	//微信服务器和开发者服务器消息交互
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BaseHandler handler = null;
 		try {
 			MsgRequest msgRequest = MsgXmlUtil.parseXml(request);//获取发送的消息
 			if("event".equals(msgRequest.getMsgType())){
-				handler = new EventHandler();				
+				handler = new EventHandler();
 			}
 			else if("text".equals(msgRequest.getMsgType())){
-				handler = new TextHandler();				
+				handler = new TextHandler();
+				logger.info(msgRequest.getFromUserName()+", "+ msgRequest.getContent());
 			}
 			else if("voice".equals(msgRequest.getMsgType())){
-				handler = new TextHandler();				
+				handler = new TextHandler();
+				logger.info(msgRequest.getFromUserName()+", "+ msgRequest.getRecognition());
 			}else{
-				handler = new EventHandler();				
+				handler = new EventHandler();
 			}
 			response.getWriter().write(handler.doHandleMsg(msgRequest));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 	//验证sign
 	public static boolean validSign(String signature, String tocken, String timestamp, String nonce) {
 		String[] paramArr = new String[] { tocken, timestamp, nonce };
@@ -109,7 +111,7 @@ public class WxApiServlet extends HttpServlet {
 		}
 		return rst;
 	}
-	
+
 	private static String byteToHex(byte b) {
 		char[] Digit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 		char[] tempArr = new char[2];
@@ -120,5 +122,3 @@ public class WxApiServlet extends HttpServlet {
 	}
 
 }
-
-
