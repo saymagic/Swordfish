@@ -70,11 +70,11 @@ public class WxApiServlet extends HttpServlet {
 			}
 			else if("text".equals(msgRequest.getMsgType())){
 				handler = new TextHandler();
-				logger.info(msgRequest.getFromUserName()+", "+ msgRequest.getContent());
+				System.out.println(msgRequest.getFromUserName()+", "+ msgRequest.getContent());
 			}
 			else if("voice".equals(msgRequest.getMsgType())){
 				handler = new TextHandler();
-				logger.info(msgRequest.getFromUserName()+", "+ msgRequest.getRecognition());
+				System.out.println(msgRequest.getFromUserName()+", "+ msgRequest.getRecognition());
 			}else{
 				handler = new EventHandler();
 			}
