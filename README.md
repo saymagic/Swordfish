@@ -167,7 +167,7 @@ Daocloud提供了持续集成的功能，注意，持续集成不是持续构建
 
 此文就是我在将微信公众号后台部署到Docker上的详细笔记了。希望对看到最后的人有帮助。当然，我还是Docker新手，全文如果不正确地方，还请高手指正。
 
-
-
+## 原文地址
+[http://blog.saymagic.cn/2015/09/04/docker-weixin.html](http://blog.saymagic.cn/2015/09/04/docker-weixin.html)
 
 
