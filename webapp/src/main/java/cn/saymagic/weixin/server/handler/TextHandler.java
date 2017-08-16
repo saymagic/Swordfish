@@ -15,7 +15,7 @@ public class TextHandler extends BaseHandler {
 		try {
 			return getResponseStringByContent(TulingUtil.getContentStr(null==msgRequest.getContent()?msgRequest.getRecognition():msgRequest.getContent(), msgRequest.getFromUserName()),msgRequest);
 		} catch (IOException e) {
-			return getResponseStringByContent("很抱歉暂时无法处理您的消息，请稍后重试",msgRequest);
+			return getResponseStringByContent("很抱歉，喵喵现在在睡觉，请稍后重试",msgRequest);
 		}
 
 	}
